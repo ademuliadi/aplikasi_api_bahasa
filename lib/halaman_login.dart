@@ -1,9 +1,40 @@
-import 'package:flutter/material.dart';
 import 'package:aplikasi_api_bahasa/halaman_register.dart';
 import 'package:aplikasi_api_bahasa/halaman_utama.dart';
+import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
-class HalamanLogin extends StatelessWidget {
+class HalamanLogin extends StatefulWidget {
   const HalamanLogin({super.key});
+
+  @override
+  State<HalamanLogin> createState() => _HalamanLoginState();
+}
+
+class _HalamanLoginState extends State<HalamanLogin> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  // ✅ Sudah diperbaiki: Tidak pakai \$
+ final String loginMutation = r'''
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      user {
+        id
+        username
+        email
+      }
+    }
+  }
+''';
+  void _showSnackbar(String message, {Color? color}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: color ?? Colors.red,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +54,10 @@ class HalamanLogin extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.email),
-                  hintText: "Email or Phone",
+                  hintText: "Email",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -33,6 +65,7 @@ class HalamanLogin extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
+                controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.lock),
@@ -43,26 +76,53 @@ class HalamanLogin extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HalamanUtama(),
+              Mutation(
+                options: MutationOptions(
+                  document: gql(loginMutation),
+                  onCompleted: (data) {
+                    if (data != null && data['login'] != null) {
+                      _showSnackbar("Login berhasil", color: Colors.green);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HalamanUtama(),
+                        ),
+                      );
+                    }
+                  },
+                  onError: (error) {
+                    _showSnackbar("Login gagal: ${error?.graphqlErrors.first.message ?? 'Unknown error'}");
+                  },
+                ),
+                builder: (RunMutation runMutation, QueryResult? result) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      final email = _emailController.text.trim();
+                      final password = _passwordController.text.trim();
+                      if (email.isEmpty || password.isEmpty) {
+                        _showSnackbar("Email dan password tidak boleh kosong");
+                        return;
+                      }
+                      runMutation({
+                        'email': email,
+                        'password': password,
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      minimumSize: const Size(double.infinity, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
+                    child: result?.isLoading ?? false
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Text(
+                            "Login",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
                   );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: const Text(
-                  "Login",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
               ),
               const SizedBox(height: 10),
               TextButton(
@@ -78,7 +138,7 @@ class HalamanLogin extends StatelessWidget {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HalamanRegister(),
+                      builder: (context) => const HalamanRegister(),
                     ),
                   );
                 },
@@ -101,5 +161,3 @@ class HalamanLogin extends StatelessWidget {
     );
   }
 }
-
-class HalamanUtama {}
