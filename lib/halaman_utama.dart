@@ -1,3 +1,8 @@
+import 'package:aplikasi_api_bahasa/custom_button_navbar.dart';
+import 'package:aplikasi_api_bahasa/halaman_chat.dart';
+import 'package:aplikasi_api_bahasa/halaman_kategori.dart';
+import 'package:aplikasi_api_bahasa/halaman_kuis.dart';
+import 'package:aplikasi_api_bahasa/halaman_latihan_soal.dart';
 import 'package:flutter/material.dart';
 
 class HalamanUtama extends StatelessWidget {
