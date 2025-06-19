@@ -1,5 +1,17 @@
 const { gql } = require('apollo-server-express');
 
+const typeDefs = gql`
+  type User {
+    id: ID!
+    username: String!
+    email: String!
+  }
+
+  type LoginResponse {
+    token: String!
+    user: User!
+  }
+
 type Kosakata {
     id_kosakata: ID!
     kata: String!
@@ -40,5 +52,7 @@ type Query {
 
     deleteKosakata(id_kosakata: ID!): Boolean!
   }
+`;
 
+module.exports = typeDefs;
   
