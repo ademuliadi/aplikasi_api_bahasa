@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bahasa_inggris_1/halaman_register.dart';
-import 'package:flutter_bahasa_inggris_1/halaman_utama.dart';
-
+import 'package:aplikasi_api_bahasa/halaman_register.dart';
+import 'package:aplikasi_api_bahasa/halaman_utama.dart';
 
 class HalamanLogin extends StatelessWidget {
   const HalamanLogin({super.key});
@@ -102,3 +101,5 @@ class HalamanLogin extends StatelessWidget {
     );
   }
 }
+
+class HalamanUtama {}
