@@ -62,10 +62,54 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+   # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/muliadi.jpeg
+    - assets/images/hewan.jpg
+    - assets/images/buah.jpg
+    - assets/images/bunga.jpg
+    - assets/images/organ_tubuh.jpg
+    - assets/images/tiger.jpg
+    - assets/images/cat.jpg
+    - assets/images/dog.jpg
+    - assets/images/chicken.jpg
+    - assets/images/lotus.jpg
+    - assets/images/lily.jpg
+    - assets/images/jasmine.jpg
+    - assets/images/lavender.jpg
+    - assets/images/tulip.jpg
+    - assets/images/lung.jpg
+    - assets/images/kidney.jpg
+    - assets/images/brain.jpg
+    - assets/images/heart.jpg
+    - assets/images/sapodilla.jpg
+    - assets/images/Durian.jpg
+    - assets/images/soursop.jpg
+    - assets/images/mangosteen.jpg
+    - assets/images/orang tua.jpg
+    - assets/images/bird.jpg
+    - assets/images/deer.jpg
+    - assets/images/banana.jpg
+    - assets/images/apple.jpg
+    - assets/images/cow.jpg
+    - assets/images/bougainvillea.jpg
+    - assets/images/crocodile.jpg
+    - assets/images/ears.jpg
+    - assets/images/eyes.jpg
+    - assets/images/frangipani.jpg
+    - assets/images/intestines.jpg
+    - assets/images/kiwi.jpg
+    - assets/images/melon.jpg
+    - assets/images/nose.jpg
+    - assets/images/orchid.jpg
+    - assets/images/rabbit.jpg
+    - assets/images/rambutan.jpg
+    - assets/images/rose.jpg
+    - assets/images/stomach.jpg
+    - assets/images/strawberry.jpg
+    - assets/images/sun.jpg
+    - assets/images/zebra.jpg
+    - assets/images/liver.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
